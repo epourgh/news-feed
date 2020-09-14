@@ -1,0 +1,82 @@
+body { 
+	background: #fff;
+	font-family: sans-serif;
+}
+
+.news-feed {
+	text-align:center;
+	transition: max-height 0.50s ease-in-out;
+}
+
+.news-feed-item {
+	padding: 15px 0;
+	border-bottom: 1px #eee solid;
+	animation: .5s animateDiv;
+	animation-fill-mode: forwards;
+}
+
+@keyframes animateDiv {
+	0% {
+		opacity: 0;
+		margin-top: 40%;
+	}
+
+	55% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 100;
+		margin-top: 0%;
+	}
+}
+
+.news-feed-item a {
+	text-decoration: none;
+	font-size: 1.2rem;
+	padding: 0 5px;
+}
+
+.desc-animation {
+	transition: max-height 0.5s ease-in-out;
+}
+
+div[class^="description-collapsed-"],
+div[class*=" description-collapsed-"] {
+	max-height: 0;
+	opacity: 0;
+	transition: all 0s ease-in-out;
+	-moz-transition: all 0s ease-in-out;
+	-webkit-transition: all 0s;
+    overflow: hidden;
+}
+
+
+div[class^="description-expand-"],
+div[class*=" description-expand-"] {
+	max-height: 300vh;
+	opacity: 100;
+	transition: all 1.3s ease-in-out;
+	-moz-transition: all 1.3s ease-in-out;
+	-webkit-transition: all 1.3s;
+}
+
+
+.news-feed-item a:hover {
+	border-bottom: 1px solid;
+	background: rgb(252, 198, 182);
+}
+
+.news-feed-read-button {
+	cursor: pointer;
+}
+
+.news-feed-read-button {
+	cursor: pointer;
+	color: blue;
+}
+
+.news-feed-read-button:hover {
+	cursor: pointer;
+	text-decoration: underline;
+}
