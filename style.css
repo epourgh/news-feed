@@ -3,6 +3,22 @@ body {
 	font-family: sans-serif;
 }
 
+button {
+	text-decoration: none;
+	padding: 0;
+	border: 0;
+	background: rgba(0,0,0,0);
+	cursor: pointer;
+}
+
+a, a:hover, a:visited, a:active, .read-more, button {
+	color: rgb(233, 110, 72);
+}
+
+p {
+	font-size: .8em;
+}
+
 .news-feed {
 	text-align:center;
 	transition: max-height 0.50s ease-in-out;
@@ -13,6 +29,39 @@ body {
 	border-bottom: 1px #eee solid;
 	animation: .5s animateDiv;
 	animation-fill-mode: forwards;
+}
+
+.headerTitle, .headerLink {
+	font-size: 200%;
+	padding: 0;
+	margin: 0;
+	font-weight: 100;
+}
+
+.grey-p {
+	color: rgb(172, 172, 172);
+	font-size: .75em;
+	margin: 0;
+	padding: 0;
+}
+
+.author-span:before {
+	content: "by ";
+	color: rgb(172, 172, 172);
+	font-weight: normal;
+}
+.author-span {
+	font-weight: bolder;
+	color: rgb(100, 100, 100);
+	padding-right: 5px;
+}
+
+.p-tag {
+	color: #fff;
+	font-size: .5em;
+	background: rgb(180, 180, 180);
+	padding: 2px 4px;
+	border-radius: 100px;
 }
 
 @keyframes animateDiv {
@@ -62,7 +111,7 @@ div[class*=" description-expand-"] {
 }
 
 
-.news-feed-item a:hover {
+.news-feed-item a:hover, button:hover {
 	border-bottom: 1px solid;
 	background: rgb(252, 198, 182);
 }
@@ -73,7 +122,6 @@ div[class*=" description-expand-"] {
 
 .news-feed-read-button {
 	cursor: pointer;
-	color: blue;
 }
 
 .news-feed-read-button:hover {

@@ -6,11 +6,13 @@ class NewsFeed {
         this.status = null;
         this.page = 1;
         this.newsItemPerRequest = 1;
+        this.pageLimit = args.pageLimit;
         this.data = args.json;
-        this.filterType = args.filterType
+        this.filterType = args.filterType;
         this.filter = args.filter;
         this.endOfLine = args.endOfLine;
-        
+
+
         this.observer = new IntersectionObserver(
             (entries, self) => {
                 console.log(self)
@@ -60,10 +62,11 @@ class NewsFeed {
         console.log('--------------')
         console.log(page);
         console.log(this.data.length)
+        console.log(this.pageLimit);
 
         
 
-        if (page >= this.data.length) {
+        if (page >= this.data.length || page > this.pageLimit) {
 
             this.endOfFeed(this.endOfLine);
             
@@ -107,30 +110,53 @@ class NewsFeed {
             let data = {
                     id: content.id,
                     title: content.title || "Untitled",
+                    author: content.author || "author",
+                    tag: content.tag || "",
+                    datePosted: content.datePosted || "-",
                     link: content.pageURL || "#",
                     tag: content.tag || '',
                     shortDesc: content.shortDesc || '',
                     description: content.description || '',
                 },
                 div = document.createElement("div"),
-                headerTitle = document.createElement('a'),
+                headerTitle = document.createElement('h1'),
+                headerLink = document.createElement('a'),
                 readMoreDiv = document.createElement('p'),
+                p = document.createElement('p'),
+                ptag = document.createElement('span'),
+                span = document.createElement('span'),
                 p1 = document.createElement('p'),
                 p2 = document.createElement('div'),
+                tag = document.createTextNode(data.tag),
                 linkText = document.createTextNode(data.title),
+                author = document.createTextNode(data.author),
+                datePosted = document.createTextNode(data.datePosted),
                 shortDescText = document.createTextNode(data.shortDesc),
                 descText = document.createTextNode(`${data.description}`),
                 readMore = document.createTextNode('Quick Read');
                 
-            headerTitle.appendChild(linkText);
+            headerLink.appendChild(linkText);
+            headerLink.href = data.link;
+            headerLink.classList = "headerLink";
+            headerTitle.appendChild(headerLink);
             headerTitle.title = data.title;
-            headerTitle.href = data.link;
+            headerTitle.classList = "headerTitle";
+            
+
 
             readMoreDiv.appendChild(readMore);
             readMoreDiv.id = `read-button-${data.id}`;
-            readMoreDiv.className = `${this.blockClass}-read-button`
+            readMoreDiv.className = `read-more ${this.blockClass}-read-button`
             
+            span.appendChild(author);
+            span.classList = "author-span";
+            p.appendChild(span);
+            p.appendChild(datePosted);
+            p.classList = "grey-p";
+            ptag.appendChild(tag);
+            ptag.classList = "grey-p p-tag";
             p1.appendChild(shortDescText);
+
 
             console.log(descText);
             console.log(`${data.description}`);
@@ -144,9 +170,11 @@ class NewsFeed {
             this.container.appendChild(div);
     
             div.appendChild(headerTitle);
+            div.appendChild(p);
             div.appendChild(p1);
             div.appendChild(p2);
             div.appendChild(readMoreDiv);
+            div.appendChild(ptag);
             
             document.getElementById(`description-${data.id}`).innerHTML = `${data.description}`;
 
@@ -172,6 +200,7 @@ class NewsFeed {
         this.container = document.querySelector(`#${args.id}`);
         this.blockClass = "news-feed";
         this.data = args.json;
+        this.pageLimit = args.pageLimit;
         this.filter = args.filter;
         this.filterType = args.filterType;
         this.page = 1;
@@ -182,73 +211,6 @@ class NewsFeed {
     }   
 
 }
-
-(async () => {
-    
-    let response = await fetch('./index.json');
-    let jsonData = await response.json();
-    
-    const newsFeed = new NewsFeed({
-        id: "news-section",
-        json: jsonData.data,
-        filter: "ALL",
-        filterType: "secondTag",
-        endOfLine: "You have scrolled to the bottom of the feed.",
-    });
-    
-    document.getElementById("button").addEventListener("click", () => {
-        newsFeed.changeConstructs({
-            id: "news-section",
-            json: jsonData.data,
-            filter: "somethingelse",
-            filterType: "tag",
-            endOfLine: "You have scrolled to the bottom of the feed.",
-        });
-    });
-    
-    document.getElementById("button2").addEventListener("click", () => {
-        newsFeed.changeConstructs({
-            id: "news-section",
-            json: jsonData.data,
-            filter: "ALL",
-            filterType: "secondTag",
-            endOfLine: "You have scrolled to the bottom of the feed.",
-        });
-    });
-
-    descriptionToggle = (dataId) => {
-        let display = document.getElementById(`description-${dataId}`);
-        let button = document.getElementById(`read-button-${dataId}`);
-        const expandOrCollapsed = display.className == `desc-animation description-collapsed-${dataId}` ? "expand" : "collapsed";
-
-        display.className = `desc-animation description-${expandOrCollapsed}-${dataId}`;
-        button.innerHTML = expandOrCollapsed == 'expand' ? 'Collapse Quick Read' : 'Quick Read';
-    }
-
-
-    descriptionToggle2 = (dataId) => {
-
-        console.log(jsonData.data);
-
-        newsFeed.changeConstructs({
-            id: "news-section",
-            json: jsonData.data,
-            filter: dataId,
-            filterType: "id",
-            endOfLine: " ",
-        });
-
-        let display = document.getElementById(`description-${dataId}`);
-        let button = document.getElementById(`read-button-${dataId}`);
-        const expandOrCollapsed = display.className == `desc-animation description-collapsed-${dataId}` ? "expand" : "collapsed";
-
-        display.className = `desc-animation description-${expandOrCollapsed}-${dataId}`;
-        button.innerHTML = expandOrCollapsed == 'expand' ? '' : 'Quick Read';
-    }
-
-    
-})();
-
 
 
 
