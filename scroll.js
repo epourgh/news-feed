@@ -11,7 +11,7 @@ class NewsFeed {
         this.filterType = args.filterType;
         this.filter = args.filter;
         this.endOfLine = args.endOfLine;
-
+        this.breadcrumb = args.breadcrumb;
 
         this.observer = new IntersectionObserver(
             (entries, self) => {
@@ -28,7 +28,7 @@ class NewsFeed {
                             contentIndex = feedCount - numOfFeedItemsAtStartOfPage;
 
                         if (feedCount < numOfFeedItemsAtStartOfPage + this.cardContent.length) {
-                            this.addFeedItem(this.cardContent[contentIndex]);
+                            this.addFeedItem(this.cardContent[contentIndex], this.pageLimit, this.filterType, this.filter);
                             // observe the next card
                             feedItems = this.getFeedItems();
                             self.observe(feedItems[feedCount]);
@@ -41,7 +41,25 @@ class NewsFeed {
                 });
             }
         );
+        this.setBreadcrumb();
         this.requestImages(this.newsItemPerRequest);
+    }
+
+    setBreadcrumb() {
+        let breadcrumb = document.getElementById("get-breadcrumbs");
+        if (this.breadcrumb[0] === true ) {
+
+            breadcrumb.innerHTML = `<i class="fas fa-arrow-left"></i>`;
+
+            const [pageLimit, filterType, filter] = [this.breadcrumb[1], this.breadcrumb[2], this.breadcrumb[3]];
+
+            breadcrumb.addEventListener('click', function () {
+                descriptionToggle3(pageLimit, filterType, filter);
+            }, false);
+
+        } else {
+            breadcrumb.innerHTML = '';
+        }
     }
 
     requestImages(perPage = 1, page = 0) {
@@ -77,7 +95,7 @@ class NewsFeed {
         } else if (this.data[page][this.filterType] == this.filter) {
             this.cardContent = this.data[page];
 
-            this.addFeedItem(this.cardContent);
+            this.addFeedItem(this.cardContent, this.pageLimit, this.filterType, this.filter);
 
             let firstCard = this.container.lastChild;
 
@@ -105,7 +123,7 @@ class NewsFeed {
 
     }
     
-    addFeedItem(content = {id: 0}) {
+    addFeedItem(content = {id: 0}, pageLimit, filterType, filter) {
         
             let data = {
                     id: content.id,
@@ -183,8 +201,9 @@ class NewsFeed {
                 descriptionToggle(`${data.id}`);
             }, false);
 
+            
             headerTitle.addEventListener('click', function () {
-                descriptionToggle2(`${data.id}`);
+                descriptionToggle2(data.id, pageLimit, filterType, filter);
             }, false);
             
     }
@@ -205,9 +224,11 @@ class NewsFeed {
         this.filterType = args.filterType;
         this.page = 1;
         this.endOfLine = args.endOfLine;
+        this.breadcrumb = args.breadcrumb;
 
         this.requestImages(this.newsItemPerRequest);
-        console.log(this.data);
+        this.setBreadcrumb();
+        
     }   
 
 }

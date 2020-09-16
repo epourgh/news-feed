@@ -10,6 +10,7 @@
         filter: "ALL",
         filterType: "secondTag",
         endOfLine: "",
+        breadcrumb: [false]
     });
 
     document.getElementById("get-latest").addEventListener("click", () => {
@@ -20,6 +21,7 @@
             filter: "ALL",
             filterType: "secondTag",
             endOfLine: "",
+            breadcrumb: [false]
         });
     });
 
@@ -31,6 +33,7 @@
             filter: "report",
             filterType: "tag",
             endOfLine: "You have scrolled to the bottom of the feed.",
+            breadcrumb: [false]
         });
     });
 
@@ -42,6 +45,7 @@
             filter: "editorial",
             filterType: "tag",
             endOfLine: "You have scrolled to the bottom of the feed.",
+            breadcrumb: [false]
         });
     });
 
@@ -53,6 +57,7 @@
             filter: "ALL",
             filterType: "secondTag",
             endOfLine: "You have scrolled to the bottom of the feed.",
+            breadcrumb: [false]
         });
     });
 
@@ -66,9 +71,10 @@
     }
 
 
-    descriptionToggle2 = (dataId) => {
+    descriptionToggle2 = (dataId, pageLimit, filterType, filter) => {
 
         console.log(jsonData.data);
+        console.log(`filtertype: ${filterType}`)
 
         newsFeed.changeConstructs({
             id: "news-section",
@@ -76,6 +82,9 @@
             filter: dataId,
             filterType: "id",
             endOfLine: " ",
+            breadcrumb: [
+                true, pageLimit, filterType, filter
+            ]
         });
 
         let display = document.getElementById(`description-${dataId}`);
@@ -84,6 +93,21 @@
 
         display.className = `desc-animation description-${expandOrCollapsed}-${dataId}`;
         button.innerHTML = expandOrCollapsed == 'expand' ? '' : 'Quick Read';
+    }
+
+
+    descriptionToggle3 = (pageLimit, filterType, filter) => {
+
+        newsFeed.changeConstructs({
+            id: "news-section",
+            json: jsonData.data,
+            pageLimit: pageLimit,
+            filter: filter,
+            filterType: filterType,
+            endOfLine: " ",
+            breadcrumb: [false]
+        });
+
     }
 
 
