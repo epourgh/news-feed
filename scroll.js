@@ -28,33 +28,49 @@ class NewsFeed {
                             contentIndex = feedCount - numOfFeedItemsAtStartOfPage;
 
                         if (feedCount < numOfFeedItemsAtStartOfPage + this.cardContent.length) {
-                            this.addFeedItem(this.cardContent[contentIndex], this.pageLimit, this.filterType, this.filter);
+
+                            const previousPageParams = {
+                                pageLimit: this.pageLimit,
+                                filterType: this.filterType,
+                                filter: this.filter,
+                                endOfLine: this.endOfLine
+                            }
+
+                            this.addFeedItem(this.cardContent[contentIndex], previousPageParams);
                             // observe the next card
                             feedItems = this.getFeedItems();
                             self.observe(feedItems[feedCount]);
 
                         } else {
                             ++this.page;
-                            this.requestImages(this.imagesPerRequest, this.page);
+                            this.requestArticles(this.imagesPerRequest, this.page);
                         }
                     }
                 });
             }
         );
+
         this.setBreadcrumb();
-        this.requestImages(this.newsItemPerRequest);
+        this.requestArticles(this.newsItemPerRequest);
     }
 
     setBreadcrumb() {
         let breadcrumb = document.getElementById("get-breadcrumbs");
-        if (this.breadcrumb[0] === true ) {
+        if (this.breadcrumb.boolean === true ) {
 
             breadcrumb.innerHTML = `<i class="fas fa-arrow-left"></i>`;
 
-            const [pageLimit, filterType, filter] = [this.breadcrumb[1], this.breadcrumb[2], this.breadcrumb[3]];
+            const [pageLimit, filterType, filter] = [this.breadcrumb.pageLimit, this.breadcrumb.filterType, this.breadcrumb.filter];
 
             breadcrumb.addEventListener('click', function () {
-                descriptionToggle3(pageLimit, filterType, filter);
+
+                const previousPageParams = {
+                    pageLimit: pageLimit,
+                    filterType:filterType,
+                    filter: filter
+                }
+
+                descriptionToggle3(previousPageParams);
             }, false);
 
         } else {
@@ -62,7 +78,23 @@ class NewsFeed {
         }
     }
 
-    requestImages(perPage = 1, page = 0) {
+    setFooter(endText) {
+
+        let endOfLine = endText,
+            div = document.createElement("div"),
+            p = document.createElement('p'),
+            endOfLineText = document.createTextNode(endOfLine);
+
+        p.appendChild(endOfLineText);
+
+        this.container.appendChild(div);
+
+        div.appendChild(p);
+        console.log('!! DONE !!!')
+
+    }
+
+    requestArticles(perPage = 1, page = 0) {
         // hard limits set by the Pixabay API
         if (perPage < 1)
             perPage = 1;
@@ -86,7 +118,7 @@ class NewsFeed {
 
         if (page >= this.data.length || page > this.pageLimit) {
 
-            this.endOfFeed(this.endOfLine);
+            this.setFooter(this.endOfLine);
             
             let firstItem = this.container.lastChild;
             this.observer.unobserve(firstItem);
@@ -95,35 +127,26 @@ class NewsFeed {
         } else if (this.data[page][this.filterType] == this.filter) {
             this.cardContent = this.data[page];
 
-            this.addFeedItem(this.cardContent, this.pageLimit, this.filterType, this.filter);
+            const previousPageParams = {
+                pageLimit: this.pageLimit,
+                filterType: this.filterType,
+                filter: this.filter,
+                endOfLine: this.endOfLine
+            }
+
+            this.addFeedItem(this.cardContent, previousPageParams);
 
             let firstCard = this.container.lastChild;
 
             this.observer.observe(firstCard);
         } else {
             ++this.page;
-            this.requestImages(this.imagesPerRequest, this.page);
+            this.requestArticles(this.imagesPerRequest, this.page);
         }
 
     }
-
-    endOfFeed(endText) {
-
-        let endOfLine = endText,
-            div = document.createElement("div"),
-            p = document.createElement('p'),
-            endOfLineText = document.createTextNode(endOfLine);
-        
-        p.appendChild(endOfLineText);
-
-        this.container.appendChild(div); 
-        
-        div.appendChild(p);
-        console.log('!! DONE !!!')
-
-    }
     
-    addFeedItem(content = {id: 0}, pageLimit, filterType, filter) {
+    addFeedItem(content = {id: 0}, previousPageParams) {
         
             let data = {
                     id: content.id,
@@ -203,7 +226,7 @@ class NewsFeed {
 
             
             headerTitle.addEventListener('click', function () {
-                descriptionToggle2(data.id, pageLimit, filterType, filter);
+                descriptionToggle2(data.id, previousPageParams);
             }, false);
             
     }
@@ -226,7 +249,7 @@ class NewsFeed {
         this.endOfLine = args.endOfLine;
         this.breadcrumb = args.breadcrumb;
 
-        this.requestImages(this.newsItemPerRequest);
+        this.requestArticles(this.newsItemPerRequest);
         this.setBreadcrumb();
         
     }   

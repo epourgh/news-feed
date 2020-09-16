@@ -10,7 +10,7 @@
         filter: "ALL",
         filterType: "secondTag",
         endOfLine: "",
-        breadcrumb: [false]
+        breadcrumb: {boolean: false}
     });
 
     document.getElementById("get-latest").addEventListener("click", () => {
@@ -21,7 +21,7 @@
             filter: "ALL",
             filterType: "secondTag",
             endOfLine: "",
-            breadcrumb: [false]
+            breadcrumb: {boolean: false}
         });
     });
 
@@ -33,7 +33,7 @@
             filter: "report",
             filterType: "tag",
             endOfLine: "You have scrolled to the bottom of the feed.",
-            breadcrumb: [false]
+            breadcrumb: {boolean: false}
         });
     });
 
@@ -45,7 +45,7 @@
             filter: "editorial",
             filterType: "tag",
             endOfLine: "You have scrolled to the bottom of the feed.",
-            breadcrumb: [false]
+            breadcrumb: {boolean: false}
         });
     });
 
@@ -57,7 +57,7 @@
             filter: "ALL",
             filterType: "secondTag",
             endOfLine: "You have scrolled to the bottom of the feed.",
-            breadcrumb: [false]
+            breadcrumb: {boolean: false}
         });
     });
 
@@ -71,20 +71,24 @@
     }
 
 
-    descriptionToggle2 = (dataId, pageLimit, filterType, filter) => {
+    descriptionToggle2 = (dataId, previousPageParams) => {
 
         console.log(jsonData.data);
-        console.log(`filtertype: ${filterType}`)
+        console.log(`filtertype: ${previousPageParams.filterType}`)
 
         newsFeed.changeConstructs({
             id: "news-section",
             json: jsonData.data,
             filter: dataId,
             filterType: "id",
-            endOfLine: " ",
-            breadcrumb: [
-                true, pageLimit, filterType, filter
-            ]
+            endOfLine: "",
+            breadcrumb: {
+                boolean: true, 
+                pageLimit: previousPageParams.pageLimit, 
+                filterType: previousPageParams.filterType, 
+                filter: previousPageParams.filter,
+                endOfLine: previousPageParams.endOfLine
+            }
         });
 
         let display = document.getElementById(`description-${dataId}`);
@@ -96,16 +100,16 @@
     }
 
 
-    descriptionToggle3 = (pageLimit, filterType, filter) => {
+    descriptionToggle3 = (previousPageParams) => {
 
         newsFeed.changeConstructs({
             id: "news-section",
             json: jsonData.data,
-            pageLimit: pageLimit,
-            filter: filter,
-            filterType: filterType,
-            endOfLine: " ",
-            breadcrumb: [false]
+            pageLimit: previousPageParams.pageLimit,
+            filter: previousPageParams.filter,
+            filterType: previousPageParams.filterType,
+            endOfLine: previousPageParams.endOfLine,
+            breadcrumb: {boolean: false}
         });
 
     }
