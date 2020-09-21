@@ -11,6 +11,7 @@ class NewsFeed {
         this.filterType = args.filterType;
         this.filter = args.filter;
         this.endOfLine = args.endOfLine;
+        this.individualArticle = args.individualArticle;
         this.breadcrumb = args.breadcrumb;
 
         this.observer = new IntersectionObserver(
@@ -64,6 +65,7 @@ class NewsFeed {
         this.filterType = args.filterType;
         this.page = 1;
         this.endOfLine = args.endOfLine;
+        this.individualArticle = args.individualArticle;
         this.breadcrumb = args.breadcrumb;
 
         this.requestArticles(this.newsItemPerRequest);
@@ -77,7 +79,13 @@ class NewsFeed {
 
             breadcrumb.innerHTML = `<i class="fas fa-arrow-left"></i>`;
 
-            const [pageLimit, filterType, filter, endOfLine] = [this.breadcrumb.pageLimit, this.breadcrumb.filterType, this.breadcrumb.filter, this.breadcrumb.endOfLine];
+            const [pageLimit, filterType, filter, endOfLine, sectionTitle] = [
+                this.breadcrumb.pageLimit, 
+                this.breadcrumb.filterType, 
+                this.breadcrumb.filter, 
+                this.breadcrumb.endOfLine, 
+                this.breadcrumb.sectionTitle
+            ];
 
             breadcrumb.addEventListener('click', function () {
 
@@ -85,7 +93,8 @@ class NewsFeed {
                     pageLimit: pageLimit,
                     filterType:filterType,
                     filter: filter,
-                    endOfLine: endOfLine
+                    endOfLine: endOfLine,
+                    sectionTitle: sectionTitle
                 }
 
                 descriptionToggle3(previousPageParams);
@@ -145,11 +154,14 @@ class NewsFeed {
         } else if (this.data[page][this.filterType] == this.filter) {
             this.cardContent = this.data[page];
 
+            const sectionTitle = document.getElementById('section-title').innerHTML;
+
             const previousPageParams = {
                 pageLimit: this.pageLimit,
                 filterType: this.filterType,
                 filter: this.filter,
-                endOfLine: this.endOfLine
+                endOfLine: this.endOfLine,
+                sectionTitle: sectionTitle
             }
 
             this.addFeedItem(this.cardContent, previousPageParams);
@@ -194,15 +206,16 @@ class NewsFeed {
                 descText = document.createTextNode(`${data.description}`),
                 readMore = document.createTextNode('Quick Read');
                 
-            headerLink.appendChild(linkText);
-            headerLink.href = data.link;
-            headerLink.classList = "headerLink";
-            headerTitle.appendChild(headerLink);
-            headerTitle.title = data.title;
-            headerTitle.classList = "headerTitle";
+            if (this.individualArticle == false) {
+                headerLink.appendChild(linkText);
+                headerLink.href = data.link;
+                headerLink.classList = "headerLink";
+                headerTitle.appendChild(headerLink);
+                headerTitle.title = data.title;
+                headerTitle.classList = "headerTitle";
+                div.appendChild(headerTitle);
+            }
             
-
-
             readMoreDiv.appendChild(readMore);
             readMoreDiv.id = `read-button-${data.id}`;
             readMoreDiv.className = `read-more ${this.blockClass}-read-button`
@@ -229,7 +242,7 @@ class NewsFeed {
             
             this.container.appendChild(div);
     
-            div.appendChild(headerTitle);
+            
             div.appendChild(p);
             div.appendChild(p1);
             div.appendChild(p2);
@@ -245,7 +258,7 @@ class NewsFeed {
 
             
             headerTitle.addEventListener('click', function () {
-                descriptionToggle2(data.id, previousPageParams);
+                descriptionToggle2(data.id, content.title, previousPageParams);
             }, false);
 
             authorLink.addEventListener('click', function () {

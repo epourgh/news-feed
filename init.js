@@ -3,6 +3,8 @@
     let response = await fetch('./index.json');
     let jsonData = await response.json();
 
+    document.getElementById('section-title').innerHTML = `Latest 3 articles`;
+
     const newsFeed = new NewsFeed({
         id: "news-section",
         json: jsonData.data,
@@ -10,33 +12,8 @@
         filter: "ALL",
         filterType: "secondTag",
         endOfLine: "",
+        individualArticle: false,
         breadcrumb: {boolean: false}
-    });
-
-    document.getElementById("get-latest").addEventListener("click", () => {
-        newsFeedUpdate({ pageLimit: 3 });
-    });
-
-    document.getElementById("get-reports").addEventListener("click", () => {
-        newsFeedUpdate({
-            filter: "report",
-            filterType: "tag",
-            endOfLine: "You have scrolled to the bottom of the feed."
-        });
-    });
-
-    document.getElementById("get-editorials").addEventListener("click", () => {
-        newsFeedUpdate({
-            filter: "editorial",
-            filterType: "tag",
-            endOfLine: "You have scrolled to the bottom of the feed."
-        });
-    });
-
-    document.getElementById("get-all").addEventListener("click", () => {
-        newsFeedUpdate({
-            endOfLine: "You have scrolled to the bottom of the feed."
-        });
     });
 
     descriptionToggle = (dataId) => {
@@ -49,20 +26,21 @@
     }
 
 
-    descriptionToggle2 = (dataId, previousPageParams) => {
+    descriptionToggle2 = (dataId, contentTitle, previousPageParams) => {
 
-        console.log(jsonData.data);
-        console.log(`filtertype: ${previousPageParams.endOfLine}`)
+        document.getElementById('section-title').innerHTML = `${contentTitle}`;
 
         newsFeedUpdate({
             filter: dataId,
             filterType: "id",
+            individualArticle: true,
             breadcrumb: {
                 boolean: true, 
                 pageLimit: previousPageParams.pageLimit, 
                 filterType: previousPageParams.filterType, 
                 filter: previousPageParams.filter,
-                endOfLine: previousPageParams.endOfLine
+                endOfLine: previousPageParams.endOfLine,
+                sectionTitle: previousPageParams.sectionTitle
             }
         });
 
@@ -76,6 +54,9 @@
 
 
     descriptionToggle3 = (previousPageParams) => {
+
+        document.getElementById('section-title').innerHTML = previousPageParams.sectionTitle;
+
         newsFeedUpdate({
             pageLimit: previousPageParams.pageLimit,
             filter: previousPageParams.filter,
@@ -85,6 +66,9 @@
     }
  
     authorToggle = (author) => {
+
+        document.getElementById('section-title').innerHTML = `Posts by ${author}`;
+
         newsFeedUpdate({
             filter: author,
             filterType: "author",
@@ -100,8 +84,49 @@
             filter: contentUpdate.filter || "ALL",
             filterType: contentUpdate.filterType || "secondTag",
             endOfLine: contentUpdate.endOfLine || "",
+            individualArticle: contentUpdate.individualArticle || false,
             breadcrumb: contentUpdate.breadcrumb || { boolean: false }
         })
     }
 
 })();
+
+document.getElementById("get-latest").addEventListener("click", () => {
+
+    document.getElementById('section-title').innerHTML = `Latest 3 Articles`;
+
+    newsFeedUpdate({
+        pageLimit: 3
+    });
+});
+
+document.getElementById("get-reports").addEventListener("click", () => {
+
+    document.getElementById('section-title').innerHTML = `Reports`;
+
+    newsFeedUpdate({
+        filter: "report",
+        filterType: "tag",
+        endOfLine: "You have scrolled to the bottom of the feed."
+    });
+});
+
+document.getElementById("get-editorials").addEventListener("click", () => {
+
+    document.getElementById('section-title').innerHTML = `Editorials`;
+
+    newsFeedUpdate({
+        filter: "editorial",
+        filterType: "tag",
+        endOfLine: "You have scrolled to the bottom of the feed."
+    });
+});
+
+document.getElementById("get-all").addEventListener("click", () => {
+
+    document.getElementById('section-title').innerHTML = `All Articles`;
+
+    newsFeedUpdate({
+        endOfLine: "You have scrolled to the bottom of the feed."
+    });
+});
