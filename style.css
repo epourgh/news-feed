@@ -45,15 +45,26 @@ p {
 	padding: 0;
 }
 
+.grey-p>.author-span {
+	font-size: 1em;
+}
+
 .author-span:before {
 	content: "by ";
 	color: rgb(172, 172, 172);
 	font-weight: normal;
 }
+
+,
+.author-span:before:hover {
+	background: rgba(0,0,0,0)
+}
 .author-span {
+	color: rgb(233, 110, 72);
 	font-weight: bolder;
-	color: rgb(100, 100, 100);
 	padding-right: 5px;
+	font-size: .2px;
+	cursor: pointer;
 }
 
 .p-tag {

@@ -54,20 +54,38 @@ class NewsFeed {
         this.requestArticles(this.newsItemPerRequest);
     }
 
+    setParams(args) {
+        this.container.innerHTML = '';
+        this.container = document.querySelector(`#${args.id}`);
+        this.blockClass = "news-feed";
+        this.data = args.json;
+        this.pageLimit = args.pageLimit;
+        this.filter = args.filter;
+        this.filterType = args.filterType;
+        this.page = 1;
+        this.endOfLine = args.endOfLine;
+        this.breadcrumb = args.breadcrumb;
+
+        this.requestArticles(this.newsItemPerRequest);
+        this.setBreadcrumb();
+
+    }
+
     setBreadcrumb() {
         let breadcrumb = document.getElementById("get-breadcrumbs");
         if (this.breadcrumb.boolean === true ) {
 
             breadcrumb.innerHTML = `<i class="fas fa-arrow-left"></i>`;
 
-            const [pageLimit, filterType, filter] = [this.breadcrumb.pageLimit, this.breadcrumb.filterType, this.breadcrumb.filter];
+            const [pageLimit, filterType, filter, endOfLine] = [this.breadcrumb.pageLimit, this.breadcrumb.filterType, this.breadcrumb.filter, this.breadcrumb.endOfLine];
 
             breadcrumb.addEventListener('click', function () {
 
                 const previousPageParams = {
                     pageLimit: pageLimit,
                     filterType:filterType,
-                    filter: filter
+                    filter: filter,
+                    endOfLine: endOfLine
                 }
 
                 descriptionToggle3(previousPageParams);
@@ -165,7 +183,7 @@ class NewsFeed {
                 readMoreDiv = document.createElement('p'),
                 p = document.createElement('p'),
                 ptag = document.createElement('span'),
-                span = document.createElement('span'),
+                authorLink = document.createElement('a'),
                 p1 = document.createElement('p'),
                 p2 = document.createElement('div'),
                 tag = document.createTextNode(data.tag),
@@ -189,9 +207,10 @@ class NewsFeed {
             readMoreDiv.id = `read-button-${data.id}`;
             readMoreDiv.className = `read-more ${this.blockClass}-read-button`
             
-            span.appendChild(author);
-            span.classList = "author-span";
-            p.appendChild(span);
+            authorLink.appendChild(author);
+            authorLink.classList = "author-span";
+
+            p.appendChild(authorLink);
             p.appendChild(datePosted);
             p.classList = "grey-p";
             ptag.appendChild(tag);
@@ -228,6 +247,10 @@ class NewsFeed {
             headerTitle.addEventListener('click', function () {
                 descriptionToggle2(data.id, previousPageParams);
             }, false);
+
+            authorLink.addEventListener('click', function () {
+                authorToggle(data.author)
+            }, false);
             
     }
 
@@ -237,22 +260,7 @@ class NewsFeed {
     }
 
 
-    changeConstructs(args) {
-        this.container.innerHTML = '';
-        this.container = document.querySelector(`#${args.id}`);
-        this.blockClass = "news-feed";
-        this.data = args.json;
-        this.pageLimit = args.pageLimit;
-        this.filter = args.filter;
-        this.filterType = args.filterType;
-        this.page = 1;
-        this.endOfLine = args.endOfLine;
-        this.breadcrumb = args.breadcrumb;
 
-        this.requestArticles(this.newsItemPerRequest);
-        this.setBreadcrumb();
-        
-    }   
 
 }
 

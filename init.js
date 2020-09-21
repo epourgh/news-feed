@@ -14,7 +14,7 @@
     });
 
     document.getElementById("get-latest").addEventListener("click", () => {
-        newsFeed.changeConstructs({
+        newsFeed.setParams({
             id: "news-section",
             json: jsonData.data,
             pageLimit: 3,
@@ -26,7 +26,7 @@
     });
 
     document.getElementById("get-reports").addEventListener("click", () => {
-        newsFeed.changeConstructs({
+        newsFeed.setParams({
             id: "news-section",
             json: jsonData.data,
             pageLimit: Infinity,
@@ -38,7 +38,7 @@
     });
 
     document.getElementById("get-editorials").addEventListener("click", () => {
-        newsFeed.changeConstructs({
+        newsFeed.setParams({
             id: "news-section",
             json: jsonData.data,
             pageLimit: Infinity,
@@ -50,7 +50,7 @@
     });
 
     document.getElementById("get-all").addEventListener("click", () => {
-        newsFeed.changeConstructs({
+        newsFeed.setParams({
             id: "news-section",
             json: jsonData.data,
             pageLimit: Infinity,
@@ -74,9 +74,9 @@
     descriptionToggle2 = (dataId, previousPageParams) => {
 
         console.log(jsonData.data);
-        console.log(`filtertype: ${previousPageParams.filterType}`)
+        console.log(`filtertype: ${previousPageParams.endOfLine}`)
 
-        newsFeed.changeConstructs({
+        newsFeed.setParams({
             id: "news-section",
             json: jsonData.data,
             filter: dataId,
@@ -102,7 +102,7 @@
 
     descriptionToggle3 = (previousPageParams) => {
 
-        newsFeed.changeConstructs({
+        newsFeed.setParams({
             id: "news-section",
             json: jsonData.data,
             pageLimit: previousPageParams.pageLimit,
@@ -112,6 +112,26 @@
             breadcrumb: {boolean: false}
         });
 
+    }
+ 
+    authorToggle = (author) => {
+        newsFeedUpdate({
+            filter: author,
+            filterType: "author",
+            endOfLine: "That is all the author has posted."
+        });
+    }
+
+    newsFeedUpdate = (contentUpdate) => {
+        newsFeed.setParams({
+            id: "news-section",
+            json: jsonData.data,
+            pageLimit: contentUpdate.pageLimit || Infinity,
+            filter: contentUpdate.filter || "ALL",
+            filterType: contentUpdate.filterType || "secondTag",
+            endOfLine: contentUpdate.endOfLine || "",
+            breadcrumb: contentUpdate.breadcrumb || { boolean: false }
+        })
     }
 
 
