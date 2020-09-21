@@ -1,3 +1,8 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+
 body { 
 	background: #fff;
 	font-family: sans-serif;
@@ -19,6 +24,11 @@ p {
 	font-size: .8em;
 }
 
+.logo {
+	font-family: 'Berkshire Swash', cursive;
+	font-size: 2rem !important;
+}
+
 .news-feed {
 	text-align:center;
 	transition: max-height 0.50s ease-in-out;
@@ -37,7 +47,7 @@ p {
 	font-weight: 500;
 	letter-spacing: 3px;
 	text-transform: uppercase;
-	border: 1px rgb(199, 199, 199) solid;
+	border-bottom: 1px rgb(199, 199, 199) solid;
 	padding: 50px;
 }
 
@@ -59,19 +69,11 @@ p {
 	font-size: 1em;
 }
 
-.author-span:before {
+/* .author-span:before {
 	content: "by ";
 	color: rgb(172, 172, 172);
 	font-weight: normal;
-}
-
-.author-span {
-	color: rgb(233, 110, 72);
-	font-weight: bolder;
-	padding-right: 5px;
-	font-size: .2px;
-	cursor: pointer;
-}
+} */
 
 .p-tag {
 	color: #fff;
@@ -80,6 +82,16 @@ p {
 	padding: 2px 4px;
 	border-radius: 100px;
 }
+
+.author-span {
+	color: rgb(233, 110, 72);
+	font-weight: bolder;
+	padding: 0;
+	padding-right: 5px;
+	font-size: .2px;
+	cursor: pointer;
+}
+
 
 @keyframes animateDiv {
 	0% {

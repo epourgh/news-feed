@@ -140,7 +140,6 @@ class NewsFeed {
         console.log(page);
         console.log(this.data.length)
         console.log(this.pageLimit);
-
         
 
         if (page >= this.data.length || page > this.pageLimit) {
@@ -151,7 +150,7 @@ class NewsFeed {
             this.observer.unobserve(firstItem);
             this.observer.disconnect();
 
-        } else if (this.data[page][this.filterType] == this.filter) {
+        } else if (this.data[page][this.filterType].toString().toLowerCase().indexOf(this.filter.toString().toLowerCase()) > -1) {
             this.cardContent = this.data[page];
 
             const sectionTitle = document.getElementById('section-title').innerHTML;
@@ -198,6 +197,7 @@ class NewsFeed {
                 authorLink = document.createElement('a'),
                 p1 = document.createElement('p'),
                 p2 = document.createElement('div'),
+                ByAuthor = document.createTextNode('By '),
                 tag = document.createTextNode(data.tag),
                 linkText = document.createTextNode(data.title),
                 author = document.createTextNode(data.author),
@@ -223,6 +223,7 @@ class NewsFeed {
             authorLink.appendChild(author);
             authorLink.classList = "author-span";
 
+            p.appendChild(ByAuthor);
             p.appendChild(authorLink);
             p.appendChild(datePosted);
             p.classList = "grey-p";

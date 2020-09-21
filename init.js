@@ -130,3 +130,20 @@ document.getElementById("get-all").addEventListener("click", () => {
         endOfLine: "You have scrolled to the bottom of the feed."
     });
 });
+
+
+document.getElementById("search-input").addEventListener("keyup", () => {
+
+    var input = document.getElementById('search-input').value;
+
+    document.getElementById('section-title').innerHTML = (input == '') ? `All Articles` : `Searching for <i>'${input}'</i>`;
+    const filter = (input == '')?'ALL':input;
+    const filterType = (input == '')?'secondTag':'title';    
+
+
+    newsFeedUpdate({
+        filter: filter,
+        filterType: filterType,
+        endOfLine: "You have scrolled to the bottom of the feed."
+    });
+});
