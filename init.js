@@ -14,50 +14,28 @@
     });
 
     document.getElementById("get-latest").addEventListener("click", () => {
-        newsFeed.setParams({
-            id: "news-section",
-            json: jsonData.data,
-            pageLimit: 3,
-            filter: "ALL",
-            filterType: "secondTag",
-            endOfLine: "",
-            breadcrumb: {boolean: false}
-        });
+        newsFeedUpdate({ pageLimit: 3 });
     });
 
     document.getElementById("get-reports").addEventListener("click", () => {
-        newsFeed.setParams({
-            id: "news-section",
-            json: jsonData.data,
-            pageLimit: Infinity,
+        newsFeedUpdate({
             filter: "report",
             filterType: "tag",
-            endOfLine: "You have scrolled to the bottom of the feed.",
-            breadcrumb: {boolean: false}
+            endOfLine: "You have scrolled to the bottom of the feed."
         });
     });
 
     document.getElementById("get-editorials").addEventListener("click", () => {
-        newsFeed.setParams({
-            id: "news-section",
-            json: jsonData.data,
-            pageLimit: Infinity,
+        newsFeedUpdate({
             filter: "editorial",
             filterType: "tag",
-            endOfLine: "You have scrolled to the bottom of the feed.",
-            breadcrumb: {boolean: false}
+            endOfLine: "You have scrolled to the bottom of the feed."
         });
     });
 
     document.getElementById("get-all").addEventListener("click", () => {
-        newsFeed.setParams({
-            id: "news-section",
-            json: jsonData.data,
-            pageLimit: Infinity,
-            filter: "ALL",
-            filterType: "secondTag",
-            endOfLine: "You have scrolled to the bottom of the feed.",
-            breadcrumb: {boolean: false}
+        newsFeedUpdate({
+            endOfLine: "You have scrolled to the bottom of the feed."
         });
     });
 
@@ -76,12 +54,9 @@
         console.log(jsonData.data);
         console.log(`filtertype: ${previousPageParams.endOfLine}`)
 
-        newsFeed.setParams({
-            id: "news-section",
-            json: jsonData.data,
+        newsFeedUpdate({
             filter: dataId,
             filterType: "id",
-            endOfLine: "",
             breadcrumb: {
                 boolean: true, 
                 pageLimit: previousPageParams.pageLimit, 
@@ -101,17 +76,12 @@
 
 
     descriptionToggle3 = (previousPageParams) => {
-
-        newsFeed.setParams({
-            id: "news-section",
-            json: jsonData.data,
+        newsFeedUpdate({
             pageLimit: previousPageParams.pageLimit,
             filter: previousPageParams.filter,
             filterType: previousPageParams.filterType,
-            endOfLine: previousPageParams.endOfLine,
-            breadcrumb: {boolean: false}
+            endOfLine: previousPageParams.endOfLine
         });
-
     }
  
     authorToggle = (author) => {
@@ -133,6 +103,5 @@
             breadcrumb: contentUpdate.breadcrumb || { boolean: false }
         })
     }
-
 
 })();
