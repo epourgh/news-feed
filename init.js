@@ -10,7 +10,7 @@
         json: jsonData.data,
         pageLimit: 3,
         filter: "ALL",
-        filterType: "secondTag",
+        filterType: "defaultTag",
         endOfLine: "",
         individualArticle: false,
         breadcrumb: {boolean: false}
@@ -82,7 +82,7 @@
             json: jsonData.data,
             pageLimit: contentUpdate.pageLimit || Infinity,
             filter: contentUpdate.filter || "ALL",
-            filterType: contentUpdate.filterType || "secondTag",
+            filterType: contentUpdate.filterType || "defaultTag",
             endOfLine: contentUpdate.endOfLine || "",
             individualArticle: contentUpdate.individualArticle || false,
             breadcrumb: contentUpdate.breadcrumb || { boolean: false }
@@ -138,7 +138,7 @@ document.getElementById("search-input").addEventListener("keyup", () => {
 
     document.getElementById('section-title').innerHTML = (input == '') ? `All Articles` : `Searching for <i>'${input}'</i>`;
     const filter = (input == '')?'ALL':input;
-    const filterType = (input == '')?'secondTag':'title';    
+    const filterType = (input == '')?'defaultTag':'title';    
 
 
     newsFeedUpdate({

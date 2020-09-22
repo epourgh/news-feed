@@ -6,8 +6,8 @@
             "title": "The Latest News Report",
             "author": "Emerson Pourghaed",
             "pageURL": "#",
+            "defaultTag": "ALL",
             "tag": "report",
-            "secondTag": "ALL",
             "tags": "placeholder tag first",
             "shortDesc": "This is the short description.",
             "description": "\n<p>And this is the rest of the description.</p><p>Second part of the description.</p>"
@@ -18,8 +18,8 @@
             "title": "Default Title first",
             "author": "Emerson Pourghaed",
             "pageURL": "#",
+            "defaultTag": "ALL",
             "tag": "report",
-            "secondTag": "ALL",
             "tags": "placeholder tag first",
             "shortDesc": "This is the short description.",
             "description": "\n<p>And this is the rest of the description.</p><p>Second part of the description.</p>"
@@ -30,8 +30,8 @@
             "title": "Default Title first",
             "author": "Emerson Pourghaed",
             "pageURL": "#",
+            "defaultTag": "ALL",
             "tag": "editorial",
-            "secondTag": "ALL",
             "tags": "placeholder tag first",
             "shortDesc": "This is the short description.",
             "description": "\n<p>And this is the rest of the description.</p><p>Second part of the description.</p>"
@@ -42,8 +42,8 @@
             "title": "Default Title first",
             "author": "Emerson Pourghaed",
             "pageURL": "#",
+            "defaultTag": "ALL",
             "tag": "editorial",
-            "secondTag": "ALL",
             "tags": "placeholder tag first",
             "shortDesc": "This is the short description.",
             "description": "\n<p>And this is the rest of the description.</p><p>Second part of the description.</p>"
@@ -54,8 +54,8 @@
             "title": "Default Title first",
             "author": "Emerson Pourghaed",
             "pageURL": "#",
+            "defaultTag": "ALL",
             "tag": "editorial",
-            "secondTag": "ALL",
             "tags": "placeholder tag first",
             "shortDesc": "This is the short description.",
             "description": "\n<p>And this is the rest of the description.</p><p>Second part of the description.</p>"
@@ -67,8 +67,8 @@
             "title": "Default Title first",
             "author": "Emerson Pourghaed",
             "pageURL": "#",
+            "defaultTag": "ALL",
             "tag": "editorial",
-            "secondTag": "ALL",
             "tags": "placeholder tag first",
             "shortDesc": "This is the short description.",
             "description": "\n<p>And this is the rest of the description.</p><p>Second part of the description.</p>"
@@ -80,8 +80,8 @@
             "title": "Default Title first",
             "author": "Emerson Pourghaed",
             "pageURL": "#",
+            "defaultTag": "ALL",
             "tag": "editorial",
-            "secondTag": "ALL",
             "tags": "placeholder tag first",
             "shortDesc": "This is the short description.",
             "description": "\n<p>And this is the rest of the description.</p><p>Second part of the description.</p>"
@@ -92,8 +92,8 @@
             "title": "Default Title first",
             "author": "Emerson Pourghaed",
             "pageURL": "#",
+            "defaultTag": "ALL",
             "tag": "editorial",
-            "secondTag": "ALL",
             "tags": "placeholder tag first",
             "shortDesc": "This is the short description.",
             "description": "\n<p>And this is the rest of the description.</p><p>Second part of the description.</p>"
@@ -105,8 +105,8 @@
             "title": "Default Title first",
             "author": "Emerson Pourghaed",
             "pageURL": "#",
+            "defaultTag": "ALL",
             "tag": "editorial",
-            "secondTag": "ALL",
             "tags": "placeholder tag first",
             "shortDesc": "This is the short description.",
             "description": "\n<p>And this is the rest of the description.</p><p>Second part of the description.</p>"
@@ -118,8 +118,8 @@
             "title": "Default Title first",
             "author": "Emerson Pourghaed",
             "pageURL": "#",
+            "defaultTag": "ALL",
             "tag": "editorial",
-            "secondTag": "ALL",
             "tags": "placeholder tag first",
             "shortDesc": "This is the short description.",
             "description": "\n<p>And this is the rest of the description.</p><p>Second part of the description.</p>"
@@ -131,8 +131,8 @@
             "title": "Default Title first",
             "author": "Emerson Pourghaed",
             "pageURL": "#",
+            "defaultTag": "ALL",
             "tag": "editorial",
-            "secondTag": "ALL",
             "tags": "placeholder tag first",
             "shortDesc": "This is the short description.",
             "description": "\n<p>And this is the rest of the description.</p><p>Second part of the description.</p>"
@@ -144,8 +144,8 @@
             "title": "Default Title first",
             "author": "Emerson Pourghaed",
             "pageURL": "#",
+            "defaultTag": "ALL",
             "tag": "editorial",
-            "secondTag": "ALL",
             "tags": "placeholder tag first",
             "shortDesc": "This is the short description.",
             "description": "\n<p>And this is the rest of the description.</p><p>Second part of the description.</p>"
@@ -157,8 +157,8 @@
             "title": "Default Title",
             "author": "Emerson Pourghaed",
             "pageURL": "#",
+            "defaultTag": "ALL",
             "tag": "report",
-            "secondTag": "ALL",
             "tags": "placeholder tag",
             "shortDesc": "This is the short description.",
             "description": "And this is the rest of the description."
@@ -170,8 +170,8 @@
             "title": "Default Title",
             "author": "Emerson Pourghaed",
             "pageURL": "#",
+            "defaultTag": "ALL",
             "tag": "report",
-            "secondTag": "ALL",
             "tags": "placeholder tag",
             "shortDesc": "This is the short description.",
             "description": "And this is the rest of the description."
@@ -183,8 +183,8 @@
             "title": "Default Title",
             "author": "Emerson Pourghaed",
             "pageURL": "#",
+            "defaultTag": "ALL",
             "tag": "report",
-            "secondTag": "ALL",
             "tags": "placeholder tag",
             "shortDesc": "This is the short description.",
             "description": "And this is the rest of the description."
@@ -196,8 +196,8 @@
             "title": "Default Title",
             "author": "Emerson Pourghaed",
             "pageURL": "#",
+            "defaultTag": "ALL",
             "tag": "report",
-            "secondTag": "ALL",
             "tags": "placeholder tag",
             "shortDesc": "This is the short description.",
             "description": "And this is the rest of the description."
@@ -209,8 +209,8 @@
             "title": "Default Title",
             "author": "Emerson Pourghaed",
             "pageURL": "#",
+            "defaultTag": "ALL",
             "tag": "report",
-            "secondTag": "ALL",
             "tags": "placeholder tag",
             "shortDesc": "This is the short description.",
             "description": "And this is the rest of the description."
@@ -222,8 +222,8 @@
             "title": "Default Title",
             "author": "Emerson Pourghaed",
             "pageURL": "#",
+            "defaultTag": "ALL",
             "tag": "report",
-            "secondTag": "ALL",
             "tags": "placeholder tag",
             "shortDesc": "This is the short description.",
             "description": "And this is the rest of the description."
@@ -235,8 +235,8 @@
             "title": "Default Title",
             "author": "Emerson Pourghaed",
             "pageURL": "#",
+            "defaultTag": "ALL",
             "tag": "report",
-            "secondTag": "ALL",
             "tags": "placeholder tag",
             "shortDesc": "This is the short description.",
             "description": "And this is the rest of the description."
@@ -248,8 +248,8 @@
             "title": "Default Title",
             "author": "Emerson Pourghaed",
             "pageURL": "#",
+            "defaultTag": "ALL",
             "tag": "report",
-            "secondTag": "ALL",
             "tags": "placeholder tag",
             "shortDesc": "This is the short description.",
             "description": "And this is the rest of the description."
@@ -261,8 +261,8 @@
             "title": "Default Title",
             "author": "Emerson Pourghaed",
             "pageURL": "#",
+            "defaultTag": "ALL",
             "tag": "report",
-            "secondTag": "ALL",
             "tags": "placeholder tag",
             "shortDesc": "This is the short description.",
             "description": "And this is the rest of the description."
@@ -274,8 +274,8 @@
             "title": "Default Title",
             "author": "Emerson Pourghaed",
             "pageURL": "#",
+            "defaultTag": "ALL",
             "tag": "report",
-            "secondTag": "ALL",
             "tags": "placeholder tag",
             "shortDesc": "This is the short description.",
             "description": "And this is the rest of the description."
@@ -287,8 +287,8 @@
             "title": "Default Title",
             "author": "Emerson Pourghaed",
             "pageURL": "#",
+            "defaultTag": "ALL",
             "tag": "report",
-            "secondTag": "ALL",
             "tags": "placeholder tag",
             "shortDesc": "This is the short description.",
             "description": "And this is the rest of the description."
@@ -300,8 +300,8 @@
             "title": "Default Title",
             "author": "Emerson Pourghaed",
             "pageURL": "#",
+            "defaultTag": "ALL",
             "tag": "report",
-            "secondTag": "ALL",
             "tags": "placeholder tag",
             "shortDesc": "This is the short description.",
             "description": "And this is the rest of the description."
@@ -313,8 +313,8 @@
             "title": "Default Title",
             "author": "Emerson Pourghaed",
             "pageURL": "#",
+            "defaultTag": "ALL",
             "tag": "report",
-            "secondTag": "ALL",
             "tags": "placeholder tag",
             "shortDesc": "This is the short description.",
             "description": "And this is the rest of the description."
@@ -326,8 +326,8 @@
             "title": "Default Title",
             "author": "Emerson Pourghaed",
             "pageURL": "#",
+            "defaultTag": "ALL",
             "tag": "report",
-            "secondTag": "ALL",
             "tags": "placeholder tag",
             "shortDesc": "This is the short description.",
             "description": "And this is the rest of the description."
@@ -339,8 +339,8 @@
             "title": "Default Title",
             "author": "Emerson Pourghaed",
             "pageURL": "#",
+            "defaultTag": "ALL",
             "tag": "report",
-            "secondTag": "ALL",
             "tags": "placeholder tag",
             "shortDesc": "This is the short description.",
             "description": "And this is the rest of the description."
@@ -352,8 +352,8 @@
             "title": "Default Title",
             "author": "Emerson Pourghaed",
             "pageURL": "#",
+            "defaultTag": "ALL",
             "tag": "report",
-            "secondTag": "ALL",
             "tags": "placeholder tag",
             "shortDesc": "This is the short description.",
             "description": "And this is the rest of the description."
@@ -366,8 +366,8 @@
             "title": "Default Title",
             "author": "Emerson Pourghaed",
             "pageURL": "#",
+            "defaultTag": "ALL",
             "tag": "report",
-            "secondTag": "ALL",
             "tags": "placeholder tag",
             "shortDesc": "This is the short description.",
             "description": "And this is the rest of the description."

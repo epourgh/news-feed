@@ -24,9 +24,32 @@ p {
 	font-size: .8em;
 }
 
+.adjust-ul {
+	margin: 10px 0;
+}
+
+.adjust-hr {
+	border: 0;
+	border-top: 1px solid rgb(226, 226, 226);
+}
+
+ul>li {
+	display:inline;
+	padding: 0 2% 0 0
+}
+
+ul>li>a {
+	cursor: pointer;
+}
+
+ul>li>a:hover {
+	background: rgb(252, 198, 182);
+}
+
 .logo {
-	font-family: 'Berkshire Swash', cursive;
-	font-size: 2rem !important;
+	font-family: 'Domine',
+	serif;
+	font-size: 3rem !important;
 }
 
 .news-feed {
@@ -43,12 +66,12 @@ p {
 
 .section-title {
 	text-align: center;
-	font-size: 2em;
+	font-size: 1.5em;
 	font-weight: 500;
 	letter-spacing: 3px;
 	text-transform: uppercase;
 	border-bottom: 1px rgb(199, 199, 199) solid;
-	padding: 50px;
+	padding: 10px;
 }
 
 .headerTitle, .headerLink {
@@ -157,3 +180,15 @@ div[class*=" description-expand-"] {
 	cursor: pointer;
 	text-decoration: underline;
 }
+
+
+@media only screen and (min-width: 900px) {
+	body {
+		margin: 0 2.5%
+	}
+
+	ul>li>input {
+		float: right;
+	}
+}
+
