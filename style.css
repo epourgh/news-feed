@@ -46,6 +46,16 @@ ul>li>a:hover {
 	background: rgb(252, 198, 182);
 }
 
+ul>li>.search-span>i {
+	color: rgb(172, 172, 172);
+	padding: 0 5px;
+	vertical-align: middle;
+}
+
+ul>li>.search-span>input {
+	padding: 2px;
+}
+
 .logo {
 	font-family: 'Domine',
 	serif;
@@ -181,14 +191,40 @@ div[class*=" description-expand-"] {
 	text-decoration: underline;
 }
 
+.side-nav {
+	display: none
+}
+
 
 @media only screen and (min-width: 900px) {
 	body {
 		margin: 0 2.5%
 	}
 
-	ul>li>input {
+	ul>li>.search-span {
 		float: right;
+	}
+
+	.wrapper {
+		display: grid;
+		grid-template-columns: 19% 60% 17%;
+	}
+
+	.side-nav {
+		display: block;
+		margin-left: 3%;
+		border-left: 1px solid rgb(226, 226, 226);
+	}
+	.side-nav {
+		text-align: center;
+	}
+
+	.side-nav>ul>li {
+		display: block;
+		padding: 2% 0
+	}
+	.side-nav>.section-title {
+		margin-left: 3%
 	}
 }
 

@@ -91,17 +91,31 @@
 
 })();
 
-document.getElementById("get-latest").addEventListener("click", () => {
+document.getElementById("top-nav-latest").addEventListener("click", () => {
+    getLatest()
+});
+document.getElementById("side-nav-latest").addEventListener("click", () => {
+    getLatest()
+});
 
+
+getLatest = () => {
     document.getElementById('section-title').innerHTML = `Latest 3 Articles`;
 
     newsFeedUpdate({
         pageLimit: 3
     });
+}
+
+document.getElementById("top-nav-reports").addEventListener("click", () => {
+    getReports()
 });
 
-document.getElementById("get-reports").addEventListener("click", () => {
+document.getElementById("side-nav-reports").addEventListener("click", () => {
+    getReports()
+});
 
+getReports = () => {
     document.getElementById('section-title').innerHTML = `Reports`;
 
     newsFeedUpdate({
@@ -109,10 +123,16 @@ document.getElementById("get-reports").addEventListener("click", () => {
         filterType: "tag",
         endOfLine: "You have scrolled to the bottom of the feed."
     });
+}
+
+document.getElementById("top-nav-editorials").addEventListener("click", () => {
+    getEditorials()
+});
+document.getElementById("side-nav-editorials").addEventListener("click", () => {
+    getEditorials()
 });
 
-document.getElementById("get-editorials").addEventListener("click", () => {
-
+getEditorials = () => {
     document.getElementById('section-title').innerHTML = `Editorials`;
 
     newsFeedUpdate({
@@ -120,16 +140,23 @@ document.getElementById("get-editorials").addEventListener("click", () => {
         filterType: "tag",
         endOfLine: "You have scrolled to the bottom of the feed."
     });
+}
+
+document.getElementById("top-nav-all").addEventListener("click", () => {
+    getAll()
+});
+document.getElementById("side-nav-all").addEventListener("click", () => {
+    getAll()
 });
 
-document.getElementById("get-all").addEventListener("click", () => {
 
+getAll = () => {
     document.getElementById('section-title').innerHTML = `All Articles`;
-
+    
     newsFeedUpdate({
         endOfLine: "You have scrolled to the bottom of the feed."
     });
-});
+}
 
 
 document.getElementById("search-input").addEventListener("keyup", () => {

@@ -16,19 +16,34 @@
             <br>
             <hr class="adjust-hr">
             <ul class="adjust-ul">
-                <li><a id="get-latest">Latest</a></li>
-                <li><a id="get-all">All Articles</a></li>
-                <li><a id="get-editorials">Editorials</a></li>
-                <li><a id="get-reports">Reports</a></li>
-                <li><input type="text" id="search-input" placeholder="Search Articles"></li>
+                <li><a id="top-nav-latest">Latest</a></li>
+                <li><a id="top-nav-all">All Articles</a></li>
+                <li><a id="top-nav-editorials">Editorials</a></li>
+                <li><a id="top-nav-reports">Reports</a></li>
+                <li><span class="search-span"><i class="fas fa-search"></i><input type="text" id="search-input" placeholder="Search Articles"></span></li>
             </ul>
             <hr>
         </header>
         <br>
         <button id="get-breadcrumbs"></button>
         
-        <div id="section-title" class="section-title"></div>
-        <div id="news-section" class="news-feed"></div>
+        <div class="wrapper">
+            <div></div>
+            <div>
+                <div id="section-title" class="section-title"></div>
+                <div id="news-section" class="news-feed"></div>
+            </div>
+            <div class="side-nav">
+                <div class="section-title">Side Bar</div>
+                <ul class="adjust-ul">
+                    <br>
+                    <li><a id="side-nav-latest">Latest</a></li>
+                    <li><a id="side-nav-all">All Articles</a></li>
+                    <li><a id="side-nav-editorials">Editorials</a></li>
+                    <li><a id="side-nav-reports">Reports</a></li>
+                </ul>
+            </div>
+        </div>
 
         <script src="scroll.js" class="image-grid"></script>
         <script src="init.js" class="image-grid"></script>
