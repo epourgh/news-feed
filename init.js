@@ -8,7 +8,7 @@
     const newsFeed = new NewsFeed({
         id: "news-section",
         json: jsonData.data,
-        pageLimit: 3,
+        pageLimit: 2,
         filter: "ALL",
         filterType: "defaultTag",
         endOfLine: "",
@@ -103,7 +103,7 @@ getLatest = () => {
     document.getElementById('section-title').innerHTML = `Latest 3 Articles`;
 
     newsFeedUpdate({
-        pageLimit: 3
+        pageLimit: 2
     });
 }
 

@@ -13,142 +13,12 @@ class NewsFeed {
         this.endOfLine = args.endOfLine;
         this.individualArticle = args.individualArticle;
         this.breadcrumb = args.breadcrumb;
-
-        let options = {
-            root: null,
-            rootMargin: "0px",
-            threshold: buildThresholdList()
-        };
-
-        function buildThresholdList() {
-            let thresholds = [];
-            let numSteps = 20;
-
-            for (let i=1.0; i<=numSteps; i++) {
-                let ratio = i/numSteps;
-                thresholds.push(ratio);
-            }
-
-            thresholds.push(0);
-            return thresholds;
-        }
-
-        // keep adding feedItems until all news items on have been loaded
-        let feedItems = this.getFeedItems(),
-            feedCount = feedItems.length,
-            numOfFeedItemsAtStartOfPage = (this.page - 1) * this.newsItemPerRequest,
-            contentIndex = feedCount - numOfFeedItemsAtStartOfPage;
-
-        const checkIfReachedEnd = () => {
-            return feedCount < numOfFeedItemsAtStartOfPage + this.cardContent.length;
-        }
+        this.setBreadcrumb();
         
-        const handleIntersect = (entries, self) => {
-            console.log(self)
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    
-                    // last entry observed, go to next entry
-                    self.unobserve(entry.target);
+        const handleIntersect = (entries, self) => entries.filter(entry => entry.isIntersecting).forEach(entry => this.changeToNextEntry(entry, self));
 
-                    if (checkIfReachedEnd()) {
-                        this.endFeed(contentIndex);
-                    } else {
-                        this.continueFeed();
-                    }
-                }
-            });
-        }
-
-        this.observer = new IntersectionObserver(handleIntersect, options);
-        this.setBreadcrumb();
+        this.observer = new IntersectionObserver(handleIntersect);
         this.requestArticles(this.newsItemPerRequest);
-    }
-
-    endFeed(contentIndex) {
-
-        const previousPageParams = {
-            pageLimit: this.pageLimit,
-            filterType: this.filterType,
-            filter: this.filter,
-            endOfLine: this.endOfLine
-        }
-
-        this.addFeedItem(this.cardContent[contentIndex], previousPageParams);
-
-        // observe the next card
-        feedItems = this.getFeedItems();
-        self.observe(feedItems[feedCount]);
-    }
-
-    continueFeed() {
-        this.requestArticles(this.imagesPerRequest, this.page);
-        ++this.page;
-    }
-
-    setParams(args) {
-        this.container.innerHTML = '';
-        this.container = document.querySelector(`#${args.id}`);
-        this.blockClass = "news-feed";
-        this.data = args.json;
-        this.pageLimit = args.pageLimit;
-        this.filter = args.filter;
-        this.filterType = args.filterType;
-        this.page = 1;
-        this.endOfLine = args.endOfLine;
-        this.individualArticle = args.individualArticle;
-        this.breadcrumb = args.breadcrumb;
-
-        this.requestArticles(this.newsItemPerRequest);
-        this.setBreadcrumb();
-    }
-
-    setBreadcrumb() {
-        let breadcrumb = document.getElementById("get-breadcrumbs");
-        if (this.breadcrumb.boolean === true ) {
-
-            breadcrumb.innerHTML = `<i class="fas fa-arrow-left"></i>`;
-
-            const [pageLimit, filterType, filter, endOfLine, sectionTitle] = [
-                this.breadcrumb.pageLimit, 
-                this.breadcrumb.filterType, 
-                this.breadcrumb.filter, 
-                this.breadcrumb.endOfLine, 
-                this.breadcrumb.sectionTitle
-            ];
-
-            breadcrumb.addEventListener('click', function () {
-
-                const previousPageParams = {
-                    pageLimit: pageLimit,
-                    filterType:filterType,
-                    filter: filter,
-                    endOfLine: endOfLine,
-                    sectionTitle: sectionTitle
-                }
-
-                descriptionToggle3(previousPageParams);
-            }, false);
-
-        } else {
-            breadcrumb.innerHTML = '';
-        }
-    }
-
-    setFooter(endText) {
-
-        let endOfLine = endText,
-            div = document.createElement("div"),
-            p = document.createElement('p'),
-            endOfLineText = document.createTextNode(endOfLine);
-
-        p.appendChild(endOfLineText);
-
-        this.container.appendChild(div);
-
-        div.appendChild(p);
-        console.log('!! DONE !!!')
-
     }
 
     requestArticles(perPage = 1, page = 0) {
@@ -193,7 +63,11 @@ class NewsFeed {
         }
 
     }
-    
+
+    getFeedItems() {
+        return this.container.querySelectorAll(`.${this.blockClass}-item`);
+    }
+
     addFeedItem(content = {id: 0}, previousPageParams) {
         
             let data = {
@@ -248,12 +122,7 @@ class NewsFeed {
             p.classList = "grey-p";
             ptag.appendChild(tag);
             ptag.classList = "grey-p p-tag";
-            p1.appendChild(shortDescText);
-
-
-            console.log(descText);
-            console.log(`${data.description}`);
-  
+            p1.appendChild(shortDescText);  
 
             div.className = `${this.blockClass}-item`;
 
@@ -287,12 +156,74 @@ class NewsFeed {
             
     }
 
+    changeToNextEntry(entry, self) {
+        self.unobserve(entry.target); // last entry unobserved, go to next entry
+        this.requestArticles(this.imagesPerRequest, this.page);
+        ++this.page;
+    }
+
+    setParams(args) {
+        this.container.innerHTML = '';
+        this.container = document.querySelector(`#${args.id}`);
+        this.blockClass = "news-feed";
+        this.data = args.json;
+        this.pageLimit = args.pageLimit;
+        this.filter = args.filter;
+        this.filterType = args.filterType;
+        this.page = 1;
+        this.endOfLine = args.endOfLine;
+        this.individualArticle = args.individualArticle;
+        this.breadcrumb = args.breadcrumb;
+
+        this.requestArticles(this.newsItemPerRequest);
+        this.setBreadcrumb();
+    }
+
+    setBreadcrumb() {
+        let breadcrumb = document.getElementById("get-breadcrumbs");
+        if (this.breadcrumb.boolean === true ) {
+
+            breadcrumb.innerHTML = `<i class="fas fa-arrow-left"></i>`;
+
+            const [pageLimit, filterType, filter, endOfLine, sectionTitle] = [
+                this.breadcrumb.pageLimit, 
+                this.breadcrumb.filterType, 
+                this.breadcrumb.filter, 
+                this.breadcrumb.endOfLine, 
+                this.breadcrumb.sectionTitle
+            ];
+
+            breadcrumb.addEventListener('click', function () {
+
+                const previousPageParams = {
+                    pageLimit: pageLimit,
+                    filterType:filterType,
+                    filter: filter,
+                    endOfLine: endOfLine,
+                    sectionTitle: sectionTitle
+                }
+
+                descriptionToggle3(previousPageParams);
+            }, false);
+
+        } else {
+            breadcrumb.innerHTML = '';
+        }
+    }
     
-    getFeedItems() {
-        return this.container.querySelectorAll(`.${this.blockClass}-item`);
+    setFooter(endText) {
+
+        let endOfLine = endText,
+            div = document.createElement("div"),
+            p = document.createElement('p'),
+            endOfLineText = document.createTextNode(endOfLine);
+
+        p.appendChild(endOfLineText);
+
+        this.container.appendChild(div);
+
+        div.appendChild(p);
+
     }
 
 }
-
-
-
