@@ -1,71 +1,11 @@
-class NewsFeed {
+class Scroll extends NewsFeed {
     constructor(args) {
-        this.container = document.querySelector(`#${args.id}`);
-        this.blockClass = "news-feed";
-        this.cardContent = null;
-        this.status = null;
-        this.page = 1;
-        this.newsItemPerRequest = 1;
-        this.pageLimit = args.pageLimit;
-        this.data = args.json;
-        this.filterType = args.filterType;
-        this.filter = args.filter;
-        this.endOfLine = args.endOfLine;
-        this.individualArticle = args.individualArticle;
-        this.breadcrumb = args.breadcrumb;
-        this.setBreadcrumb();
-        
+        super(args);
+    
         const handleIntersect = (entries, self) => entries.filter(entry => entry.isIntersecting).forEach(entry => this.changeToNextEntry(entry, self));
-
+        
         this.observer = new IntersectionObserver(handleIntersect);
-        this.requestArticles(this.newsItemPerRequest);
-    }
-
-    requestArticles(perPage = 1, page = 0) {
-        // hard limits set by the Pixabay API
-        if (perPage < 1)
-            perPage = 1;
-        else if (perPage > 50)
-            perPage = 50;
-
-        if (page < 0)
-            page = 0;
-
-        if (page >= this.data.length || page > this.pageLimit) {
-
-            this.setFooter(this.endOfLine);
-            
-            let firstItem = this.container.lastChild;
-            this.observer.unobserve(firstItem);
-            this.observer.disconnect();
-
-        } else if (this.data[page][this.filterType].toString().toLowerCase().indexOf(this.filter.toString().toLowerCase()) > -1) {
-            this.cardContent = this.data[page];
-
-            const sectionTitle = document.getElementById('section-title').innerHTML;
-
-            const previousPageParams = {
-                pageLimit: this.pageLimit,
-                filterType: this.filterType,
-                filter: this.filter,
-                endOfLine: this.endOfLine,
-                sectionTitle: sectionTitle
-            }
-
-            this.addFeedItem(this.cardContent, previousPageParams);
-
-            let firstCard = this.container.lastChild;
-
-            this.observer.observe(firstCard);
-        } else {
-            ++this.page;
-            this.requestArticles(this.imagesPerRequest, this.page);
-        }
-
-    }
-
-    getFeedItems() {
-        return this.container.querySelectorAll(`.${this.blockClass}-item`);
+        this.firstArticleRequest();
     }
 
     addFeedItem(content = {id: 0}, previousPageParams) {
@@ -126,6 +66,7 @@ class NewsFeed {
 
             div.className = `${this.blockClass}-item`;
 
+            
             p2.className = `desc-animation description-collapsed-${data.id}`;
             p2.id = `description-${data.id}`;
             
@@ -147,6 +88,7 @@ class NewsFeed {
 
             
             headerTitle.addEventListener('click', function () {
+                console.log(data.id)
                 descriptionToggle2(data.id, content.title, previousPageParams);
             }, false);
 
@@ -156,59 +98,63 @@ class NewsFeed {
             
     }
 
+    firstArticleRequest() {
+        this.requestArticles();
+    }
+
+    requestArticles(page = 0) {
+
+        if (this.didReachEndOfPage(page)) {
+
+            this.removeObserver();
+            this.setFooter(this.endOfLine);
+
+        } else if (this.didFindSearchTerm(page)) {
+            this.searchResult(page);
+        } else {
+            this.requestArticles(this.page++);
+        }
+
+    }
+
+    didReachEndOfPage(page) {
+        return page >= this.data.length || page > this.pageLimit;
+    }
+
+    didFindSearchTerm(page) {
+        return this.data[page][this.filterType].toString().toLowerCase().indexOf(this.filter.toString().toLowerCase()) > -1;
+    }
+
+    searchResult(page) {
+        this.contentProperties = this.data[page];
+
+        const sectionTitle = document.getElementById('section-title').innerHTML;
+
+        const previousPageParams = {
+            pageLimit: this.pageLimit,
+            filterType: this.filterType,
+            filter: this.filter,
+            endOfLine: this.endOfLine,
+            sectionTitle: sectionTitle
+        }
+
+        this.addFeedItem(this.contentProperties, previousPageParams);
+
+        let firstEntry = this.container.lastChild;
+
+        this.observer.observe(firstEntry);
+    }
+
     changeToNextEntry(entry, self) {
         self.unobserve(entry.target); // last entry unobserved, go to next entry
-        this.requestArticles(this.imagesPerRequest, this.page);
-        ++this.page;
+        (this.isFirstEntry)?this.isFirstEntry--:this.page++;
+        console.log(this.page);
+        this.requestArticles(this.page);
     }
 
-    setParams(args) {
-        this.container.innerHTML = '';
-        this.container = document.querySelector(`#${args.id}`);
-        this.blockClass = "news-feed";
-        this.data = args.json;
-        this.pageLimit = args.pageLimit;
-        this.filter = args.filter;
-        this.filterType = args.filterType;
-        this.page = 1;
-        this.endOfLine = args.endOfLine;
-        this.individualArticle = args.individualArticle;
-        this.breadcrumb = args.breadcrumb;
-
-        this.requestArticles(this.newsItemPerRequest);
-        this.setBreadcrumb();
-    }
-
-    setBreadcrumb() {
-        let breadcrumb = document.getElementById("get-breadcrumbs");
-        if (this.breadcrumb.boolean === true ) {
-
-            breadcrumb.innerHTML = `<i class="fas fa-arrow-left"></i>`;
-
-            const [pageLimit, filterType, filter, endOfLine, sectionTitle] = [
-                this.breadcrumb.pageLimit, 
-                this.breadcrumb.filterType, 
-                this.breadcrumb.filter, 
-                this.breadcrumb.endOfLine, 
-                this.breadcrumb.sectionTitle
-            ];
-
-            breadcrumb.addEventListener('click', function () {
-
-                const previousPageParams = {
-                    pageLimit: pageLimit,
-                    filterType:filterType,
-                    filter: filter,
-                    endOfLine: endOfLine,
-                    sectionTitle: sectionTitle
-                }
-
-                descriptionToggle3(previousPageParams);
-            }, false);
-
-        } else {
-            breadcrumb.innerHTML = '';
-        }
+    removeObserver() {
+        this.observer.unobserve(this.container.lastChild);
+        this.observer.disconnect();
     }
     
     setFooter(endText) {

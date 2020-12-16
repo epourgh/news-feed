@@ -1,14 +1,14 @@
 (async () => {
 
-    let response = await fetch('./index.json');
+    let response = await fetch('/data/index.json');
     let jsonData = await response.json();
 
     document.getElementById('section-title').innerHTML = `Latest 3 articles`;
 
-    const newsFeed = new NewsFeed({
+    const newsFeed = new PageClick({
         id: "news-section",
         json: jsonData.data,
-        pageLimit: 2,
+        pageLimit: 3,
         filter: "ALL",
         filterType: "defaultTag",
         endOfLine: "",
@@ -103,7 +103,7 @@ getLatest = () => {
     document.getElementById('section-title').innerHTML = `Latest 3 Articles`;
 
     newsFeedUpdate({
-        pageLimit: 2
+        pageLimit: 3
     });
 }
 
