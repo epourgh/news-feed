@@ -14,45 +14,76 @@ class NewsFeed {
         this.individualArticle = args.individualArticle;
         this.breadcrumb = args.breadcrumb;
 
-        this.observer = new IntersectionObserver(
-            (entries, self) => {
-                console.log(self)
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        // since only the last loaded image should be observed, there will be “baton passing” of being observed
-                        self.unobserve(entry.target);
+        let options = {
+            root: null,
+            rootMargin: "0px",
+            threshold: buildThresholdList()
+        };
 
-                        // keep adding feedItems until all images on have been loaded
-                        let feedItems = this.getFeedItems(),
-                            feedCount = feedItems.length,
-                            numOfFeedItemsAtStartOfPage = (this.page - 1) * this.newsItemPerRequest,
-                            contentIndex = feedCount - numOfFeedItemsAtStartOfPage;
+        function buildThresholdList() {
+            let thresholds = [];
+            let numSteps = 20;
 
-                        if (feedCount < numOfFeedItemsAtStartOfPage + this.cardContent.length) {
-
-                            const previousPageParams = {
-                                pageLimit: this.pageLimit,
-                                filterType: this.filterType,
-                                filter: this.filter,
-                                endOfLine: this.endOfLine
-                            }
-
-                            this.addFeedItem(this.cardContent[contentIndex], previousPageParams);
-                            // observe the next card
-                            feedItems = this.getFeedItems();
-                            self.observe(feedItems[feedCount]);
-
-                        } else {
-                            ++this.page;
-                            this.requestArticles(this.imagesPerRequest, this.page);
-                        }
-                    }
-                });
+            for (let i=1.0; i<=numSteps; i++) {
+                let ratio = i/numSteps;
+                thresholds.push(ratio);
             }
-        );
 
+            thresholds.push(0);
+            return thresholds;
+        }
+
+        // keep adding feedItems until all news items on have been loaded
+        let feedItems = this.getFeedItems(),
+            feedCount = feedItems.length,
+            numOfFeedItemsAtStartOfPage = (this.page - 1) * this.newsItemPerRequest,
+            contentIndex = feedCount - numOfFeedItemsAtStartOfPage;
+
+        const checkIfReachedEnd = () => {
+            return feedCount < numOfFeedItemsAtStartOfPage + this.cardContent.length;
+        }
+        
+        const handleIntersect = (entries, self) => {
+            console.log(self)
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    
+                    // last entry observed, go to next entry
+                    self.unobserve(entry.target);
+
+                    if (checkIfReachedEnd()) {
+                        this.endFeed(contentIndex);
+                    } else {
+                        this.continueFeed();
+                    }
+                }
+            });
+        }
+
+        this.observer = new IntersectionObserver(handleIntersect, options);
         this.setBreadcrumb();
         this.requestArticles(this.newsItemPerRequest);
+    }
+
+    endFeed(contentIndex) {
+
+        const previousPageParams = {
+            pageLimit: this.pageLimit,
+            filterType: this.filterType,
+            filter: this.filter,
+            endOfLine: this.endOfLine
+        }
+
+        this.addFeedItem(this.cardContent[contentIndex], previousPageParams);
+
+        // observe the next card
+        feedItems = this.getFeedItems();
+        self.observe(feedItems[feedCount]);
+    }
+
+    continueFeed() {
+        this.requestArticles(this.imagesPerRequest, this.page);
+        ++this.page;
     }
 
     setParams(args) {
@@ -70,7 +101,6 @@ class NewsFeed {
 
         this.requestArticles(this.newsItemPerRequest);
         this.setBreadcrumb();
-
     }
 
     setBreadcrumb() {
@@ -130,17 +160,6 @@ class NewsFeed {
 
         if (page < 0)
             page = 0;
-
-
-        // send request
-        // data[page][page].map
-        // this.requestJSON(url).then
-        
-        console.log('--------------')
-        console.log(page);
-        console.log(this.data.length)
-        console.log(this.pageLimit);
-        
 
         if (page >= this.data.length || page > this.pageLimit) {
 
@@ -272,9 +291,6 @@ class NewsFeed {
     getFeedItems() {
         return this.container.querySelectorAll(`.${this.blockClass}-item`);
     }
-
-
-
 
 }
 
