@@ -28,7 +28,7 @@ class Scroll extends NewsFeed {
                 p = document.createElement('p'),
                 ptag = document.createElement('span'),
                 authorLink = document.createElement('a'),
-                p1 = document.createElement('p'),
+                div2 = document.createElement('span'),
                 p2 = document.createElement('div'),
                 ByAuthor = document.createTextNode('By '),
                 tag = document.createTextNode(data.tag),
@@ -36,7 +36,6 @@ class Scroll extends NewsFeed {
                 author = document.createTextNode(data.author),
                 datePosted = document.createTextNode(data.datePosted),
                 shortDescText = document.createTextNode(data.shortDesc),
-                descText = document.createTextNode(`${data.description}`),
                 readMore = document.createTextNode('Quick Read');
                 
             if (this.individualArticle == false) {
@@ -62,11 +61,10 @@ class Scroll extends NewsFeed {
             p.classList = "grey-p";
             ptag.appendChild(tag);
             ptag.classList = "grey-p p-tag";
-            p1.appendChild(shortDescText);  
 
             div.className = `${this.blockClass}-item`;
 
-            
+            div2.id = `shortDesc-${data.id}`;
             p2.className = `desc-animation description-collapsed-${data.id}`;
             p2.id = `description-${data.id}`;
             
@@ -74,11 +72,12 @@ class Scroll extends NewsFeed {
     
             
             div.appendChild(p);
-            div.appendChild(p1);
+            div.appendChild(div2);
             div.appendChild(p2);
             div.appendChild(readMoreDiv);
             div.appendChild(ptag);
             
+            document.getElementById(`shortDesc-${data.id}`).innerHTML = `${data.shortDesc}`;
             document.getElementById(`description-${data.id}`).innerHTML = `${data.description}`;
 
 

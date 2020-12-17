@@ -86,9 +86,10 @@ ul>li>.search-span>input {
 
 .headerTitle, .headerLink {
 	font-size: 200%;
-	padding: 0;
+	padding: .5em;
 	margin: 0;
 	font-weight: 100;
+	line-height: .7em;
 }
 
 .grey-p {

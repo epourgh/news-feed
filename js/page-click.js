@@ -49,6 +49,7 @@ class PageClick extends Scroll {
         this.endOfLine = args.endOfLine;
         this.individualArticle = args.individualArticle;
         this.breadcrumb = args.breadcrumb;
+        this.isFirstEntry = true;
 
         this.requestArticles();
         this.setBreadcrumb();
