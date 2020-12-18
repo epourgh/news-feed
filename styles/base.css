@@ -16,12 +16,23 @@ button {
 	cursor: pointer;
 }
 
+figure {
+	font-size: .8em;
+	font-weight: 100;
+	color: rgb(145, 145, 145);
+}
+
+figure figcaption {
+	text-align: center;
+}
+
 a, a:hover, a:visited, a:active, .read-more, button {
 	color: rgb(233, 110, 72);
 }
 
 p {
-	font-size: .8em;
+	font-size: 1em;
+	line-height: 2em;
 }
 
 .adjust-ul {
@@ -63,7 +74,6 @@ ul>li>.search-span>input {
 }
 
 .news-feed {
-	text-align:center;
 	transition: max-height 0.50s ease-in-out;
 }
 
@@ -85,11 +95,11 @@ ul>li>.search-span>input {
 }
 
 .headerTitle, .headerLink {
-	font-size: 200%;
-	padding: .5em;
+	font-size: 1.5em;
+	padding: .5em .5em .5em 0;
 	margin: 0;
 	font-weight: 100;
-	line-height: .7em;
+	line-height: 1.5em;
 }
 
 .grey-p {
@@ -121,7 +131,7 @@ ul>li>.search-span>input {
 	color: rgb(233, 110, 72);
 	font-weight: bolder;
 	padding: 0;
-	padding-right: 5px;
+	margin-right: 5px;
 	font-size: .2px;
 	cursor: pointer;
 }
@@ -145,8 +155,6 @@ ul>li>.search-span>input {
 
 .news-feed-item a {
 	text-decoration: none;
-	font-size: 1.2rem;
-	padding: 0 5px;
 }
 
 .desc-animation {
@@ -173,6 +181,13 @@ div[class*=" description-expand-"] {
 	-webkit-transition: all 1.3s;
 }
 
+.shortDesc p,
+div[class^="description-collapsed-"] p,
+div[class*=" description-collapsed-"] p, 
+div[class^="description-expand-"] p,
+div[class*=" description-expand-"] p {
+	text-indent: 3em;
+}
 
 .news-feed-item a:hover, button:hover {
 	border-bottom: 1px solid;

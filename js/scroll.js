@@ -35,7 +35,6 @@ class Scroll extends NewsFeed {
                 linkText = document.createTextNode(data.title),
                 author = document.createTextNode(data.author),
                 datePosted = document.createTextNode(data.datePosted),
-                shortDescText = document.createTextNode(data.shortDesc),
                 readMore = document.createTextNode('Quick Read');
                 
             if (this.individualArticle == false) {
@@ -65,6 +64,7 @@ class Scroll extends NewsFeed {
             div.className = `${this.blockClass}-item`;
 
             div2.id = `shortDesc-${data.id}`;
+            div2.className = `shortDesc`;
             p2.className = `desc-animation description-collapsed-${data.id}`;
             p2.id = `description-${data.id}`;
             
