@@ -174,7 +174,7 @@ div[class*=" description-collapsed-"] {
 
 div[class^="description-expand-"],
 div[class*=" description-expand-"] {
-	max-height: 300vh;
+	max-height: 1000vh;
 	opacity: 100;
 	transition: all 1.3s ease-in-out;
 	-moz-transition: all 1.3s ease-in-out;
