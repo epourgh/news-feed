@@ -22,6 +22,17 @@ figure {
 	color: rgb(145, 145, 145);
 }
 
+blockquote:before,
+blockquote:after {
+	content:'\"';
+}
+
+blockquote {
+	font-size: 1.5em;
+	color: rgb(145, 145, 145);
+	margin: 5% 15%;
+}
+
 figure figcaption {
 	text-align: center;
 }
@@ -159,6 +170,16 @@ ul>li>.search-span>input {
 
 .desc-animation {
 	transition: max-height 0.5s ease-in-out;
+}
+
+.endOfFeed {
+	width: 25%;
+	padding: 0;
+	margin: 10% 35%;
+	padding: 2% 2.5%;
+	text-align: center;
+	font-weight: 900;
+	border: 1px solid rgb(223, 223, 223);
 }
 
 div[class^="description-collapsed-"],

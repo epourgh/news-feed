@@ -160,14 +160,21 @@ class Scroll extends NewsFeed {
 
         let endOfLine = endText,
             div = document.createElement("div"),
+            img = document.createElement('img'),
             p = document.createElement('p'),
             endOfLineText = document.createTextNode(endOfLine);
 
         p.appendChild(endOfLineText);
-
-        this.container.appendChild(div);
+        if (endOfLine) {
+            p.className = 'endOfFeed';
+            img.src = '/img/cat.png'
+            img.className = 'endOfFeed';
+            div.appendChild(img);
+        }
 
         div.appendChild(p);
+        this.container.appendChild(div);
+
 
     }
 
