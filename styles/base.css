@@ -24,13 +24,31 @@ figure {
 
 blockquote:before,
 blockquote:after {
-	content:'\"';
+	color: #ccc;
+	line-height: 0.1em;
+	margin-right: 0.25em;
+	vertical-align: -0.4em;
 }
+
+blockquote:after {
+	font-size: 2.5em;
+	content: close-quote;
+}
+
+blockquote:before {
+	font-size: 4em;
+	content: open-quote;
+}
+
 
 blockquote {
 	font-size: 1.5em;
-	color: rgb(145, 145, 145);
 	margin: 5% 15%;
+	color: rgb(145, 145, 145);
+	background-image: linear-gradient(90deg, #f9f9f9 80%, #fff 100%);
+	border-left: .5em solid rgb(221, 221, 221);
+	padding: 0.5em 10px;
+	quotes: "\201C""\201D""\2018""\2019";
 }
 
 figure figcaption {
