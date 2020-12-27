@@ -1,6 +1,6 @@
 (async () => {
 
-    let response = await fetch('/data/index.json');
+    let response = await fetch('./data/index.json');
     let jsonData = await response.json();
 
     document.getElementById('section-title').innerHTML = `Latest 3 articles`;
